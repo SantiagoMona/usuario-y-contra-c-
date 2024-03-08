@@ -59,16 +59,24 @@ if (contador >= 3)
 System.Console.WriteLine(i.GetType());
 
 
-} */
-Int64 numero1;
+} */Int64 numero1;
 Int64 numero2;
 
-void main (){
+
+
+void Main (){
     System.Console.WriteLine("1 - suma");
     System.Console.WriteLine("2 - resta");
     System.Console.WriteLine("3 - multiplicacion");
+    System.Console.WriteLine("4 - salir");
     System.Console.Write("Que operacion Desea hacer:  ");
     string? opcion = Console.ReadLine();
+
+    if (string.IsNullOrEmpty(opcion) ){
+        Console.Clear();
+        System.Console.WriteLine("Ingrese una opcion VAlIDA...");
+        Main();
+    }
 
     switch (opcion)
     {
@@ -81,11 +89,18 @@ void main (){
         case "3":
             multiplicacion();
             break;
+        case "4":
+            break;
         default:
+            Console.Clear();
+            System.Console.WriteLine("Ingrese una opcion VAlIDA...");
+            Main();
             break;
     }
 
 }
+
+Main();
 
 void Suma (){
     pedirDatos();
@@ -96,15 +111,15 @@ void Suma (){
 
 void resta (){
     pedirDatos();
-    float resta = numero1 + numero2;
+    float resta = numero1 - numero2;
     System.Console.WriteLine($"la resta es {resta}");
     aksToUser ();
 }
 
 void multiplicacion (){
     pedirDatos();
-    float multiplicacion = numero1 + numero2;
-    System.Console.WriteLine($"la multiplicacion es {multiplicacion}");
+    float multiplicacion = numero1 * numero2;
+    Console.WriteLine($"la multiplicacion es {multiplicacion}");
     aksToUser ();
 }
 
@@ -112,8 +127,18 @@ void pedirDatos () {
     System.Console.WriteLine("insegre el primer numero");
     numero1 = Convert.ToInt64(Console.ReadLine());
 
-    System.Console.WriteLine("insegre el segundo numero");
+    if (string.IsNullOrEmpty(numero1.ToString()) ){
+         System.Console.WriteLine("has ingresado vacio");
+         pedirDatos();
+    }
+
+    Console.WriteLine("insegre el segundo numero");
     numero2 = Convert.ToInt64(Console.ReadLine());
+
+    if (string.IsNullOrEmpty(numero2.ToString()) ){
+        Console.WriteLine("has ingresado vacio");
+        pedirDatos();
+    }
 
 }
 
@@ -125,13 +150,16 @@ void aksToUser (){
     switch (OptionContinio)
     {
         case "si":
-            main();
+            Console.Clear();
+            Console.WriteLine("Eliga su nueva operacion a realizar");
+            Main();
             break;
         case "no":
             break;
         default:
             System.Console.WriteLine("Insgrese una opcion valida");
             Console.Clear();
+            aksToUser();
             break;
     }
 }
